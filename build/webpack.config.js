@@ -26,6 +26,9 @@ module.exports = {
     port: 8089
   },
   stats: 'errors-only',
+  optimization: {
+    minimize: false,
+  },
   plugins: [
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['./dist']
