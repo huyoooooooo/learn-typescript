@@ -32,7 +32,7 @@ let desc: Decs = (x: number, y: number = 3) => x - y
 console.log('---------------------------------------------------------------')
 
 /** 剩余参数 */
-const handleData = (arg1: number, ...args: string[]) {
+const handleData = (arg1: number, ...args: string[]) => {
   // ...
 }
 console.log('---------------------------------------------------------------')
