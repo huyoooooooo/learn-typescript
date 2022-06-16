@@ -2,5 +2,6 @@
 // import './example/symbol'
 // import './example/interface'
 // import './example/function'
-import './example/generics'
+// import './example/generics'
+import './example/class'
 // let num = 1   // Cannot redeclare block-scoped variable 'num'
