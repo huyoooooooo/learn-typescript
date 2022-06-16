@@ -3,5 +3,7 @@
 // import './example/interface'
 // import './example/function'
 // import './example/generics'
-import './example/class'
+// import './example/class'
+// import './example/enum'
+import './example/inference-compatibility'
 // let num = 1   // Cannot redeclare block-scoped variable 'num'
