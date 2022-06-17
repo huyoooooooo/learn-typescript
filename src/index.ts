@@ -5,5 +5,6 @@
 // import './example/generics'
 // import './example/class'
 // import './example/enum'
-import './example/inference-compatibility'
+// import './example/inference-compatibility'
+import './example/advanced-type_1'
 // let num = 1   // Cannot redeclare block-scoped variable 'num'
