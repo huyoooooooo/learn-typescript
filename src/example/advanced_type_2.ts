@@ -235,3 +235,106 @@ let tuple1: PromiseTuple = [
   new Promise(resolve => resolve(true))
 ]
 console.log('---------------------------------------------------------------')
+
+/** unknow */
+// [1] 任何类型都可以赋值给 unknow 类型
+let value1: unknown
+value1 = 'a'
+value1 = 123
+
+// [2] 如果没有类型断言或基于控制流的类型细化时, unknow不可以赋值给其他类型, 此时只能赋值给 unknow 和 any 类型
+// let value2: string = value1
+// Type 'unknown' is not assignable to type 'string'
+let value2: unknown = value1
+
+// [3] 如果没有类型断言或基于控制流的类型细化, 不能对其做任意操作
+// let value3: unknown
+// value3 += 1
+
+// [4] unknow与任何其他类型组成的交叉类型最后都等于其他类型
+type type1 = string & unknown   // string
+type type2 = number & unknown   // number
+type type3 = unknown & unknown  // unknow
+
+// [5] unknow与任何其他类型(除 any)的组成的联合类型都为 unknow 类型
+type type4 = string | unknown // unknow
+type type5 = any | unknown    // any
+
+// [6] never 类型是 unknow 的子类型
+type type6 = never extends unknown ? true : false   // 条件类型距离  --> true
+
+// [7] keyof unknow 等于类型 never
+type type7 = keyof unknown    // never
+
+// [8] 只能对 unknow 进行等或不等操作, 不能进行其他操作
+value1 === value2
+
+// [9] unknow 类型的值不能访问它的属性，不能作为函数调用和作为类创建实例
+// [10] 使用映射类型，如果遍历的是unknow类型，则不会映射任何属性
+type Type1<T> = {
+  [P in keyof T]: number
+}
+type type8 = Type1<any>
+type type9 = Type1<unknown>
+console.log('---------------------------------------------------------------')
+
+/** (分布式)条件类型 */
+// T extends U? X: Y
+type Type2<T> = T extends string? string: number
+let index: Type2<'a'>       // 此时的 'a' 是字符串的字面量类型
+
+// type TypeName<T> = T extends any? T: never
+// type Type3 = TypeName<string | number>
+
+type TypeName<T> = 
+  T extends string? string:
+  T extends number? number:
+  T extends boolean? boolean:
+  T extends undefined? undefined:
+  T extends Function? Function: object
+
+type type10 = TypeName<string[]>
+
+type Diff<T, U> = T extends U? never: T
+type Test2 = Diff<string|number|boolean, undefined|number>    // string | boolean
+
+// 这个例子 ----  [keyof T] 遍历出属性值不为 never 的属性名(额，这个写法...)
+type Type3<T> = {
+  [K in keyof T]: T[K] extends Function? K: never
+}[keyof T]
+interface Part {
+  id: number,
+  name: string,
+  subparts: Part[],
+  undatePart(newName: string): void
+}
+type Test3 = Type3<Part>
+
+// infer 条件类型推断
+type Type4<T> = T extends any[]? T[number]: T     // 如果是数组取数组元素类型否则直接是传入类型
+type Test4 = Type4<string[]>
+type Test5 = Type4<string>
+
+type Type5<T> = T extends Array<infer U>? U: T
+type Test6 = Type5<string[]>
+
+// Exclude<T, U>  从U中选出不在T中的类型，返回一个联合类型
+type Type6 = Exclude<'a'|'b'|'c', 'b'>      // type Type6 = 'a' | 'c'
+// Extract<T, U>  从T中选取出可以赋值给U的类型
+type Type7 = Extract<'a'| 'b' | 'c', 'c' | 'b'>   // type Type7 = 'a' | 'c'
+
+// NonNullable<T> 去除 null 和 undefined
+type Type8 = NonNullable<string | number | null | undefined>
+
+// ReturnType 获取函数类型返回值类型
+type Type9 = ReturnType<() => string>
+type Type10 = ReturnType<() => void>
+
+// InstanceType 获取构造函数的实例类型
+class ACls {
+  constructor() {}
+}
+type T1 = InstanceType<typeof ACls>
+type T2 = InstanceType<any>
+type T3 = InstanceType<never>
+// type T4 = InstanceType<string>
