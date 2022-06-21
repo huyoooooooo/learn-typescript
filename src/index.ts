@@ -7,5 +7,7 @@
 // import './example/enum'
 // import './example/inference-compatibility'
 // import './example/advanced-type_1'
-import './example/advanced_type_2'
+// import './example/advanced_type_2'
+
+import './ts-modules/index'
 // let num = 1   // Cannot redeclare block-scoped variable 'num'
