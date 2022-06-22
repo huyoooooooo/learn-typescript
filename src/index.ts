@@ -10,7 +10,8 @@
 // import './example/advanced_type_2'
 // import './example/merging'
 // import './example/decorator'
-import './example/mixin'
+// import './example/mixin'
+import './example/update'
 
 // import './ts-modules/index'
 // let num = 1   // Cannot redeclare block-scoped variable 'num'
