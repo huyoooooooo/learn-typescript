@@ -8,5 +8,8 @@
 </head>
 <body>
   <h1>BAHS</h1>
+  <!-- 直接编译是没有办法将相对路径(打包之后的相对路径)的文件打包进 dist 目录的 -->
+  <!-- 需要通过 copy-webpack-plugin 插件(无编译)复制进 dist 目录 -->
+  <script src="./handle-title.js"></script>
 </body>
 </html>
