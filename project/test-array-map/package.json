@@ -1,0 +1,16 @@
+{
+  "name": "test-array-map",
+  "version": "1.0.0",
+  "description": "array map function use ts",
+  "main": "./dist/test-array-map.js",
+  "keywords": [
+    "typescript"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
